@@ -10,7 +10,7 @@ AWSのEC2上にWordPress環境を作成するためのスクリプト
 1. 他の項目は任意に設定して、起動してください。
 1. sshで起動したEC2にログインします。
 ```
-ssh -i xxx.pem ec2-user@xx.xx.xx.xx
+ssh -i xxx.pem ec2-user@www.hogehoge.com
 ```
 
 ### 2. Nginx1.x / PHP7.2 / MariaDB10のインストール
@@ -24,24 +24,24 @@ chmod 744 install-lnmp.sh
 ```
 2. ブラウザでページが参照できるか確認してください。
 ```
-http://xx.xx.xx.xx
+http://www.hogehoge.com
 ```
 
 ### 3. WordPressのインストール
 
 1. 以下のコマンドを実行してください。
-（最後のシェル実行ではデータベース名を指定します）
+（最後のシェル実行では新規サイトのFQDNを指定します）
 ```
 cd ~
 wget https://github.com/tri-comma/ec2-wordpress-builer/install-wordpress.sh
 chmod 744 install-wordpress.sh
-./install-wordpress.sh wordpress
+./install-wordpress.sh www.hogehoge.com
 ```
 2. ブラウザでWordPressのインストールを開始してください。
 ```
-http://xx.xx.xx.xx/wordpress
+http://www.hogehoge.com
 ```
-- データベース名：シェル実行時に指定した名称
+- データベース名：FQDNのドットおよびハイフンをアンダースコアに変換した名称
 - ユーザ名：root
 - パスワード：なし
 - ホスト名：localhost
