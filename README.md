@@ -20,6 +20,7 @@ ssh -i xxx.pem ec2-user@xx.xx.xx.xx
 cd ~
 wget https://github.com/tri-comma/ec2-wordpress-builer/install-lnmp.sh
 chmod 744 install-lnmp.sh
+./install-lnmp.sh
 ```
 2. ブラウザでページが参照できるか確認してください。
 ```
