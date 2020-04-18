@@ -20,7 +20,7 @@ sudo mv ~/wordpress/* /usr/share/nginx/vhosts/$FQDN/
 sudo rmdir ~/wordpress
 sudo chown -R nginx:nginx /usr/share/nginx/vhosts/$FQDN
 
-sudo cat << __NGINX_CONF__ > /etc/nginx/conf.d/$FQDN.conf
+sudo cat << __NGINX_CONF__ | sudo tee /etc/nginx/conf.d/$FQDN.conf > /dev/null
 server {
     listen 80;
     server_name $FQDN;
