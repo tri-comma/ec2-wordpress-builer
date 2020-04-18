@@ -26,3 +26,23 @@ chmod 744 install-lnmp.sh
 ```
 http://xx.xx.xx.xx
 ```
+
+### 3. WordPressのインストール
+
+1. 以下のコマンドを実行してください。
+（最後のシェル実行ではデータベース名を指定します）
+```
+cd ~
+wget https://github.com/tri-comma/ec2-wordpress-builer/install-wordpress.sh
+chmod 744 install-wordpress.sh
+./install-wordpress.sh wordpress
+```
+2. ブラウザでWordPressのインストールを開始してください。
+```
+http://xx.xx.xx.xx/wordpress
+```
+- データベース名：シェル実行時に指定した名称
+- ユーザ名：root
+- パスワード：なし
+- ホスト名：localhost
+- テーブル接頭子：wp_（任意に設定可能）
