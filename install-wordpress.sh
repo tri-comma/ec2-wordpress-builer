@@ -29,20 +29,20 @@ server {
     root /usr/share/nginx/vhosts/$FQDN;
     index index.php index.html;
     location / {
-        try_files $uri $uri/ @wordpress;
+        try_files \$uri \$uri/ @wordpress;
     }
     location ~ \.php$ {
         root /usr/share/nginx/vhosts/$FQDN;
         fastcgi_pass unix:/var/run/php-fpm/www.sock;
         fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME ${document_root}${fastcgi_script_name};
+        fastcgi_param SCRIPT_FILENAME \${document_root}\${fastcgi_script_name};
         include fastcgi_params;
     }
     location @wordpress {
         fastcgi_index index.php;
         fastcgi_split_path_info ^(.+\.php)(.*)$;
         fastcgi_pass unix:/var/run/php-fpm/www.sock;
-        fastcgi_param SCRIPT_FILENAME ${document_root}/index.php;
+        fastcgi_param SCRIPT_FILENAME \${document_root}/index.php;
         include fastcgi_params;
     }
 }
@@ -52,5 +52,8 @@ DBNAME=`echo $FQDN | sed s/\\\./_/g | sed s/-/_/g`
 mysql -u root -e "CREATE DATABASE $DBNAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" 
 
 sudo systemctl restart nginx.service
+
+echo "ブラウザで$FQDNにアクセスしてWordPressのインストールを開始してください。"
+echo "その時、データベース名は$DBNAMEを指定してください。"
 
 exit 0
