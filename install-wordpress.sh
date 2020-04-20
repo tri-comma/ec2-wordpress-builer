@@ -31,7 +31,7 @@ server {
     location / {
         try_files \$uri \$uri/ @wordpress;
     }
-    location ~ \.php$ {
+    location ~ \.php\$ {
         root /usr/share/nginx/vhosts/$FQDN;
         fastcgi_pass unix:/var/run/php-fpm/www.sock;
         fastcgi_index index.php;
@@ -40,7 +40,7 @@ server {
     }
     location @wordpress {
         fastcgi_index index.php;
-        fastcgi_split_path_info ^(.+\.php)(.*)$;
+        fastcgi_split_path_info ^(.+\.php)(.*)\$;
         fastcgi_pass unix:/var/run/php-fpm/www.sock;
         fastcgi_param SCRIPT_FILENAME \${document_root}/index.php;
         include fastcgi_params;
