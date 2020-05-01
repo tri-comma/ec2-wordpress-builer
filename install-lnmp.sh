@@ -29,4 +29,18 @@ sudo systemctl enable nginx.service
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
+sudo yum -y install ruby
+sudo wget https://dl.eff.org/certbot-auto
+sudo chmod 700 certbot-auto
+sudo cat << __CERTBOT__ | sudo ruby -e 'f = "certbot-auto";lines = File.read(f).gsub(/^elif \[ -f \/etc\/issue \] && grep -iq "Amazon Linux(.*\n){5}/, "#{STDIN.read}");  File.write(f, lines);'
+elif grep -i "Amazon Linux" /etc/issue > /dev/null 2>&1 || \\
+   grep 'cpe:.*:amazon_linux:2' /etc/os-release > /dev/null 2>&1; then
+  Bootstrap() {
+    ExperimentalBootstrap "Amazon Linux" BootstrapRpmCommon
+  }
+  BOOTSTRAP_VERSION="BootstrapRpmCommon $BOOTSTRAP_RPM_COMMON_VERSION"
+__CERTBOT__
+sudo mv ./certbot-auto /usr/local/bin
+
 exit 0
+
