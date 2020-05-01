@@ -21,15 +21,12 @@ sudo mv ~/wordpress/* /usr/share/nginx/vhosts/$FQDN/
 sudo rmdir ~/wordpress
 sudo chown -R nginx:nginx /usr/share/nginx/vhosts/$FQDN
 
-sudo cat << __NGINX_CONF__ | sudo tee /etc/nginx/conf.d/$FQDN.conf > /dev/null
+NGINXCONF=/etc/nginx/conf.d/$FQDN.conf
+sudo cat << __NGINX_CONF__ | sudo tee $NGINXCONF > /dev/null
 server {
     listen 80;
-    listen 443 ssl;
-    ssl on;
-    ssl_certificate     /etc/letsencrypt/live/from-cloudfront.$FQDN/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/from-cloudfront.$FQDN/privkey.pem;
 
-    server_name $FQDN;
+    server_name $FQDN from-cloudfront.$FQDN;
     access_log /var/log/nginx/$FQDN-access.log main;
     error_log /var/log/nginx/$FQDN-error.log;
     root /usr/share/nginx/vhosts/$FQDN;
@@ -57,6 +54,12 @@ __NGINX_CONF__
 sudo systemctl restart nginx.service
 
 sudo /usr/local/bin/certbot-auto certonly --webroot -w /usr/share/nginx/vhosts/$FQDN -d from-cloudfront.$FQDN --email $MADDR -n --agree-tos --debug
+sudo cat << __NGINX_CONF__ | sudo ruby -e 'f = ARGV[0];lines = File.read(f).gsub(/^    listen 80;\n/, "    listen 80;\n#{STDIN.read}");  File.write(f, lines);' $NGINXCONF
+    listen 443 ssl;
+    ssl on;
+    ssl_certificate     /etc/letsencrypt/live/from-cloudfront.$FQDN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/from-cloudfront.$FQDN/privkey.pem;
+__NGINX_CONF__
 
 DBNAME=`echo $FQDN | sed s/\\\./_/g | sed s/-/_/g`
 mysql -u root -e "CREATE DATABASE $DBNAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" 
