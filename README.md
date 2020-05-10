@@ -30,7 +30,7 @@ ssh -i xxx.pem ec2-user@XXX.XXX.XXX.XXX
     - 第２引数：AWS CLIのシークレットキー
 ```
 cd ~
-wget https://github.com/tri-comma/ec2-wordpress-builer/install-lnmp.sh
+wget https://raw.githubusercontent.com/tri-comma/ec2-wordpress-builer/master/install-lnmp.sh
 chmod 744 install-lnmp.sh
 ./install-lnmp.sh XXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
@@ -48,7 +48,7 @@ http://www.hogehoge.com
     - 第３引数：SSL証明書取得用メールアドレス
 ```
 cd ~
-wget https://github.com/tri-comma/ec2-wordpress-builer/install-wordpress.sh
+wget https://raw.githubusercontent.com/tri-comma/ec2-wordpress-builer/master/install-wordpress.sh
 chmod 744 install-wordpress.sh
 ./install-wordpress.sh www.hogehoge.com hogehoge.com user@hogehoge.com
 ```
