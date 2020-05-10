@@ -36,7 +36,7 @@ chmod 744 install-lnmp.sh
 ```
 2. ブラウザでページが参照できるか確認してください。
 ```
-http://www.hogehoge.com
+http://XXX.XXX.XXX.XXX
 ```
 
 ### 3. WordPressのインストール
